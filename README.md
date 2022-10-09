@@ -13,7 +13,7 @@ The following features are currently supported:
 - create flashes on a specified interval
 
 Example of a scene:
-```
+```python
 # horror scene
 horror_lights = find_lights(bridge, ['Hlwy 1', 'Hlwy 2', 'Hlwy 3',  'Hlwy 4', 'Hlwy 5', 'Hlwy 6'])
 horror_color_palette: list[RGBColor] = [RGBColor(255, 0, 0), RGBColor(254, 0, 0)]
