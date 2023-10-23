@@ -1,2 +1,2 @@
-aiohue
+aiohue==4.5.0
 rgbxy
