@@ -29,3 +29,7 @@ horror_scene: LightScene = LightScene(name='horror',
                                       flash_interval_sec=60)
 ```
 This scene will stay red, flicker a little bit (brightness is adjusted every 0.5sec), and flash every 60sec.
+
+### List of Setups
+Different setups are stored in tags:
+- halloween_2022
