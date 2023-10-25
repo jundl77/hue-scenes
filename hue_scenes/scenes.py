@@ -50,7 +50,7 @@ class LightScene:
             self.flash_interval: Optional[datetime.timedelta] = None
 
         # state
-        self.last_flash_ts: datetime.datetime = datetime.datetime.now()
+        self.last_flash_ts: datetime.datetime = datetime.datetime.now() - datetime.timedelta(self.start_delay_sec)
 
     async def run(self):
         await asyncio.sleep(self.start_delay_sec)
@@ -83,7 +83,10 @@ class LightScene:
         if self.flash_interval is not None and now - self.last_flash_ts > self.flash_interval:
             self.last_flash_ts = now
 
-        await asyncio.gather(*coros)
+        try:
+            await asyncio.gather(*coros)
+        except Exception as e:
+            logging.error(f"[{self.name}] encountered error updating lights, are the lights off? - error={e}")
 
     def _compute_new_state(self) -> HueState:
         brightness = int(random.betavariate(10, 2) * 100)

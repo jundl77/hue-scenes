@@ -85,6 +85,20 @@ async def main():
 
         converter: Converter = Converter(GamutA)
 
+        # horror scene
+        horror_lights = find_lights(bridge, ['Lvrm Cndl 1', 'Lvrm Cndl 2', 'Lvrm Cndl 3',  'Lvrm Cndl 4', 'Lvrm Cndl 5', 'Lvrm Lmp 1'])
+        horror_color_palette: list[RGBColor] = [RGBColor(255, 0, 0), RGBColor(254, 0, 0)]
+        horror_scene: LightScene = LightScene(name='horror',
+                                              bridge=bridge,
+                                              converter=converter,
+                                              lights=horror_lights,
+                                              color_palette=horror_color_palette,
+                                              start_delay_sec=0,
+                                              update_interval_sec=0.5,
+                                              change_all_lights_together=False,
+                                              transition_time_100ms=1000,
+                                              flash_interval_sec=65)
+
         # spider scene
         spider_lights = find_lights(bridge, ['Hlwy 1', 'Hlwy 2', 'Hlwy 3',  'Hlwy 4', 'Hlwy 5', 'Hlwy 6'])
         spider_color_palette: list[RGBColor] = [RGBColor(0, 102, 255), RGBColor(0, 153, 255), RGBColor(0, 0, 255)]
@@ -93,7 +107,7 @@ async def main():
                                               converter=converter,
                                               lights=spider_lights,
                                               color_palette=spider_color_palette,
-                                              start_delay_sec=0,
+                                              start_delay_sec=20,
                                               update_interval_sec=0.5,
                                               change_all_lights_together=False,
                                               transition_time_100ms=1000,
@@ -108,11 +122,11 @@ async def main():
                                                  converter=converter,
                                                  lights=graveyard_lights,
                                                  color_palette=graveyard_color_palette,
-                                                 start_delay_sec=30,
-                                                 update_interval_sec=0.5,
+                                                 start_delay_sec=40,
+                                                 update_interval_sec=1,
                                                  change_all_lights_together=False,
                                                  transition_time_100ms=50000,
-                                                 flash_interval_sec=60)
+                                                 flash_interval_sec=55)
 
         # potions scene
         potions_lights = find_lights(bridge, ['Kt 1', 'Kt 2', 'Kt 3'])
@@ -130,7 +144,7 @@ async def main():
                                                transition_time_100ms=10000,
                                                flash_interval_sec=None)
 
-        coros = [spider_scene.run(), graveyard_scene.run(), potions_scene.run()]
+        coros = [horror_scene.run(), spider_scene.run(), graveyard_scene.run(), potions_scene.run()]
         await asyncio.gather(*coros)
 
 
